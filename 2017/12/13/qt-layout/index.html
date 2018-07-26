@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2018 | 
+            浅析 Qt 布局系统 | 
         
         旭丶Joy
     </title>
@@ -65,15 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://yoursite.com">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2018 | 旭丶Joy">
+    <meta property="og:title" content="浅析 Qt 布局系统 | 旭丶Joy">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="">
     
 
     
+        <meta property="article:published_time" content="12月 13, 2017" />
+        <meta property="article:modified_time" content="7月 26, 2018" />
+    
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2018 | 旭丶Joy">
+    <meta name="twitter:title" content="浅析 Qt 布局系统 | 旭丶Joy">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -81,13 +84,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/archives/2018/index.html" />
+        <link rel="canonical" href="http://yoursite.com/2017/12/13/qt-layout/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "旭丶Joy",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "韩元旭",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "headline": "浅析 Qt 布局系统",
+    "url": "http://yoursite.com/2017/12/13/qt-layout/index.html",
+    "datePublished": "12月 13, 2017",
+    "dateModified": "7月 26, 2018",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://yoursite.com"
+    }
+}
+</script>
 
 
     
@@ -271,214 +304,335 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Qt-布局系统介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">Qt 布局系统介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#布局系统"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">布局系统</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#布局系统的功能"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">布局系统的功能</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#布局系统的结构"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">布局系统的结构</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#QBoxLayout-箱式布局"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">QBoxLayout 箱式布局</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#QFormLayout-表单布局"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">QFormLayout 表单布局</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#QGridLayout-网格布局"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">QGridLayout 网格布局</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#QStackedLayout-栈布局"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">QStackedLayout 栈布局</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#布局相关属性"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">布局相关属性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#控件大小"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">控件大小</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大小策略"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">大小策略</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#伸缩性"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">伸缩性</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#窗体大小约束策略"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">窗体大小约束策略</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#其他属性"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">其他属性</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#官方文档"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">官方文档</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">参考</span></a></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/07/26/svn-to-git/">SVN 迁移至 Git 完整记录</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            Git 万...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/07/26/svn-to-git/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="韩元旭's avatar">
-            </div>
-            <div>
-                <strong>韩元旭</strong>
-                <span>7月 26, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/07/15/vision-demo/">基于 iOS 11 Vision 的人脸识别和特征点提取的表情包模仿功能的实践</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            前面想起来去年在上...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/07/15/vision-demo/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="韩元旭's avatar">
-            </div>
-            <div>
-                <strong>韩元旭</strong>
-                <span>7月 15, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/05/02/helloworld/">GitHub 个人博客搭建</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            准备工作
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/05/02/helloworld/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="韩元旭's avatar">
-            </div>
-            <div>
-                <strong>韩元旭</strong>
-                <span>5月 02, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                浅析 Qt 布局系统
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>韩元旭</strong>
+        <span>12月 13, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=浅析 Qt 布局系统&url=http://yoursite.com/2017/12/13/qt-layout/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=浅析 Qt 布局系统&url=http://yoursite.com/2017/12/13/qt-layout/index.html&via=韩元旭" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/12/13/qt-layout/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com/2017/12/13/qt-layout/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=旭丶Joy&title=浅析 Qt 布局系统&summary=&pics=http://yoursite.com/img/favicon.png&url=http://yoursite.com/2017/12/13/qt-layout/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="Qt-布局系统介绍"><a href="#Qt-布局系统介绍" class="headerlink" title="Qt 布局系统介绍"></a>Qt 布局系统介绍</h2><h3 id="布局系统"><a href="#布局系统" class="headerlink" title="布局系统"></a>布局系统</h3><p>作为一名 iOS 开发人员, 见证着 iOS 布局系统的不断完善, 从绝对布局, Autoresizing 到 Autolayout. 使得开发人员的工作效率越来越高, 项目界面的可读性和易维护性越来越强. 如今 IDE 中的可视化界面工具已经非常强大, 许多网友”戏称” iOS 开发者为”UI 拖拽师”, 可见, iOS 开发中界面布局系统的高效. 所以, 优秀的布局系统的使命在于让开发者花更少的时间来完成更易维护的界面. </p>
+<p>同样的, 在 Qt 中, 系统提供了强大的排版机制来为窗口中的视图进行布局排版, 经过了对 Qt 布局一个初步的探索, 不得不对 Qt 布局系统的简洁高效而又功能强大表示赞叹. </p>
+<h4 id="布局系统的功能"><a href="#布局系统的功能" class="headerlink" title="布局系统的功能"></a>布局系统的功能</h4><p>在 Qt 中, 布局系统可以完成</p>
+<ul>
+<li>定位子控件</li>
+<li>得知窗体默认大小</li>
+<li>得知窗体最小大小</li>
+<li>窗体大小变化时进行布局排版</li>
+<li>内容改变(字体大小文本等, 隐藏或显示, 移除)时进行布局排版</li>
+</ul>
+<h4 id="布局系统的结构"><a href="#布局系统的结构" class="headerlink" title="布局系统的结构"></a>布局系统的结构</h4><p>Qt 提供了 QLayout 类及其子类来为界面进行排版布局. 结构如下图:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db4742693550?w=640&amp;h=360&amp;f=png&amp;s=22386" alt="布局系统结构图"></p>
+<p> QLayout 是布局系统中的抽象基类, 继承自 QObject 和 QLayoutItem, 其中四个子类分别为</p>
+<ul>
+<li>QBoxLayout(箱式布局)</li>
+<li>QFormLayout(表单布局)</li>
+<li>QGridLayout(网格布局)</li>
+<li>QStackedLayout(栈布局)</li>
+</ul>
+<p>在真实使用场景中, 往往需要通过多种布局的相结合来完成界面的设计, 接下来将分别介绍四中布局.</p>
+<h4 id="QBoxLayout-箱式布局"><a href="#QBoxLayout-箱式布局" class="headerlink" title="QBoxLayout 箱式布局"></a>QBoxLayout 箱式布局</h4><p>箱式布局提供了两个子类分别处理水平(QHBoxLayout)和垂直(QVBoxLayout)两个方向的排版, 可以使视图排成一行或者一列来显示. 简单说, 就是可以让控件进行排排站, 比如在我们的 AlphaBox 中, 顶部的头像, 姓名, 和刷新按钮排成了一排, 这就是水平箱式布局:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db47427c71e4?w=480&amp;h=260&amp;f=png&amp;s=27839" alt="什么叫排排站"></p>
+<p>你以为我要讲一下这个东西如何实现? NO, 我偏偏要以垂直箱式布局为例, 用一个最简单的例子来介绍箱式布局的使用, 首先创建一个基于 QWidget 的界面, 添加我们需要使用的头文件:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QVBoxLayout&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>并在构造函数中添加如下代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  添加两个按钮</span></span><br><span class="line">QPushButton *okBtn  = <span class="keyword">new</span> QPushButton;</span><br><span class="line">okBtn -&gt;setText(tr(<span class="string">"我在上面, 我最牛"</span>));</span><br><span class="line">QPushButton *celBtn = <span class="keyword">new</span> QPushButton;</span><br><span class="line">celBtn-&gt;setText(tr(<span class="string">"我在下面, 我不服"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//  创建一个垂直箱式布局, 将两个按钮扔进去</span></span><br><span class="line">QVBoxLayout *layout = <span class="keyword">new</span> QVBoxLayout;</span><br><span class="line">layout-&gt;addWidget(okBtn);</span><br><span class="line">layout-&gt;addWidget(celBtn);</span><br><span class="line"></span><br><span class="line"><span class="comment">//  设置界面的布局为垂直箱式布局</span></span><br><span class="line">setLayout(layout);</span><br></pre></td></tr></table></figure>
+<p>运行看一下效果, 什么? 这就可以运行了? 坐标呢? 尺寸呢? 是的, 没看错…点击运行:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db4742a9c721?w=480&amp;h=268&amp;f=png&amp;s=30417" alt="最简单的箱式布局"></p>
+<p>两个按钮已经一上一下, 乖乖的在垂直方向自己站好了位置, 就是这么强大, 就是这么省心.</p>
+<h4 id="QFormLayout-表单布局"><a href="#QFormLayout-表单布局" class="headerlink" title="QFormLayout 表单布局"></a>QFormLayout 表单布局</h4><p>强大的 AlphaBox 是很外向的, 可以很轻松的将你的资料分享给其他用户, 当我们分享的时候, 会有这样一个界面:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db474299f9a3?w=480&amp;h=232&amp;f=png&amp;s=20804" alt="在 AlphaBox 中共享资料"></p>
+<p>看到这个界面, 聪明的你可能会说, 这很简单啊, 好几个水平箱式布局就可以实现, 可是, 更聪明的 Qt 提供了更高效的方式帮助你完成这样一个界面, 那就是 QFormLayout.</p>
+<p>在我所学习 Qt 所使用的书籍中, 将 QFormLayout 翻译为窗体布局, 我个人认为, 将其翻译为表单布局更为贴切, 因为 QFormLayout 的强大之处正是可以使用最快的速度完成一个用户输入的表单界面的搭建.</p>
+<p>那么, 让我们揭开 AlphaBox 的神秘面纱, 看看这样一个界面是怎么实现的.</p>
+<p>首先, 拖拽一个 Form Layout 到 Widget 中.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db474545565c?w=480&amp;h=205&amp;f=jpeg&amp;s=11896" alt="添加表单布局"></p>
+<p>双击之后即可为表单增加一行.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db4745517544?w=480&amp;h=478&amp;f=png&amp;s=50895" alt="为表单增加一行"></p>
+<p>相信大家看到这张图时, 就已经能理解到表单布局是如何使用的, 提供了标签作为用户输入内容的指引, 提供字段类型作为用户输入的控件, 作为 iOS 开发者, 深知这样一个界面的搭建所需要的繁杂的工作量. 当我第一次打开这个界面时, 被这样创建界面的方式所惊呆了. </p>
+<ol>
+<li>按照图中, 创建表单的第一行, 共享给哪个用户的输入框, 可以为输入框填写占位文字.</li>
+<li>双击 Form Layout 创建字段类型为 QComboBox (多选框)的一行. 填写允许的权限内容.</li>
+<li>设置整个 Widget 布局为垂直箱式布局</li>
+<li>在 Form Layout 下拖拽过去一个 Horizontal Layout(水平箱式布局)</li>
+<li>在箱式布局中添加 Horizontal Spacer (水平占位) 后拖拽两个 Push Button 完成界面布局</li>
+</ol>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db47738ff342?w=480&amp;h=165&amp;f=jpeg&amp;s=12866" alt="共享界面的布局"></p>
+<p>快不快? 快不快! 快不快!!!</p>
+<p>同样的, 如果是使用纯代码表单布局的话可以使用<code>addRow()</code>的方法来添加一行.</p>
+<h4 id="QGridLayout-网格布局"><a href="#QGridLayout-网格布局" class="headerlink" title="QGridLayout 网格布局"></a>QGridLayout 网格布局</h4><p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db477397fa8f?w=480&amp;h=349&amp;f=png&amp;s=20575" alt="强大的 AlphaBox 是这样的"></p>
+<p>事实上, 强大的 AlphaBox 是这样的, 我们可以共享给多个用户, 而且, 下方会有一个列表, 展示共享的用户以及权限列表. 这时, 表单布局就没办法满足我们, 只好另求新欢 QGridLayout - 网格布局.</p>
+<p>网格布局顾名思义, 可以将界面分割成行列来进行布局管理, 在每个单元格中来摆放控件. 所以 AlphaBox 分享的界面使用了一个 <strong>两行三列</strong> 的网格布局来实现的.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db4778649978?w=480&amp;h=85&amp;f=jpeg&amp;s=7669" alt="QGridLayout - 网格布局"></p>
+<p>当然, 更更复杂的界面, 用 Qt 布局的效率也是非常高的, 我做了一个外链分享的布局 Demo, 可以将内部资料生成一个下载链接共享给任何人去下载.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db47787dc959?w=480&amp;h=357&amp;f=png&amp;s=31610" alt="外链分享界面"></p>
+<p>这个界面中, 我在Tab之内使用了网格布局, 布局如图:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db477dd43f8c?w=480&amp;h=320&amp;f=jpeg&amp;s=19381" alt="外链分享界面布局"></p>
+<p>从图中可以看出, 网格布局像是在操作一个 Excel 一样简单, 布局单元格, 合并单元格, 等等.</p>
+<p>在这个界面中, 更灵活的使用了 QLayout 的属性来完成了界面布局排版.</p>
+<p>同样的, 在代码中, 可以使用如下等的 Api 来为网格视图添加一个从几行几列开始占据几行几列的控件:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addWidget</span><span class="params">(QWidget *, <span class="keyword">int</span> row, <span class="keyword">int</span> column, <span class="keyword">int</span> rowSpan, <span class="keyword">int</span> columnSpan)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="QStackedLayout-栈布局"><a href="#QStackedLayout-栈布局" class="headerlink" title="QStackedLayout 栈布局"></a>QStackedLayout 栈布局</h4><p>如在 AlphaBox 中, 我们可以通过云端文件浏览器直接查看和操作云端文件, 在加载的过程中, 会有一个转菊花的界面.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db478e91a5a1?w=480&amp;h=377&amp;f=png&amp;s=12861" alt="在转菊花的 AlphaBox"></p>
+<p>加载失败时的错误提示:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db4794309c91?w=480&amp;h=377&amp;f=png&amp;s=15651" alt="菊花转失败了的 AlphaBox"></p>
+<p>以及加载成功时:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db4799cf96cf?w=480&amp;h=377&amp;f=png&amp;s=25245" alt="通常情况下我们能看见的 AlphaBox"></p>
+<p>通常应用的界面会根据不同的状态有不同的内容, 这时就可以使用 QStackedLayout 栈布局, 栈布局提供了一个页面的栈, 每个页面有完全独立的界面布局. 可以非常清晰的对不同状态下的界面进行布局管理.</p>
+<p>在 Qt 的可视化布局工具中, 通过 Stacked Widget 来完成界面的栈布局</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db479df25bf5?w=320&amp;h=289&amp;f=jpeg&amp;s=12895" alt="Stacked Widget"></p>
+<p>通过右键来进行页面的插入移除和排序等操作.</p>
+<h3 id="布局相关属性"><a href="#布局相关属性" class="headerlink" title="布局相关属性"></a>布局相关属性</h3><h4 id="控件大小"><a href="#控件大小" class="headerlink" title="控件大小"></a>控件大小</h4><p>对于控件大小, 最重要的两个属性是 <code>sizeHint</code> 和 <code>minimumSizeHint</code> , 这是 QWidget 的属性, 是只读属性. 其中, <code>sizeHint</code> 属性为控件的建议大小, 对于不同的控件, 有不同的建议大小, 同理 <code>minimumSizeHint</code> 为建议的最小大小. 知道了这两个属性才可以理解布局中控件的大小是如何控制的. 如果手动设置了最小尺寸的话(<code>minimumSize</code>), <code>minimumSizeHint</code> 是会被忽略的.</p>
+<h4 id="大小策略"><a href="#大小策略" class="headerlink" title="大小策略"></a>大小策略</h4><p>大小策略属性 <code>sizePolicy</code> 也是 QWidget 类的属性, 这个属性在水平和垂直两个方向分别起作用, 控制着控件大小变化的策略.</p>
+<p>在可视化工具中可以直观的看到几种大小策略, 以垂直为例如图:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db479dd52506?w=530&amp;h=292&amp;f=jpeg&amp;s=23280" alt="大小策略"></p>
+<ul>
+<li><code>QSizePolicy::Fixed</code> 只能使用 sizeHint 的大小, 任何操作都不会改变控件大小</li>
+<li><code>QSizePolicy::Minimum</code> sizeHint 为最小大小, 控件可以被拉伸</li>
+<li><code>QSizePolicy::Maximum</code> sizeHint 为最大大小, 控件可以被压缩</li>
+<li><code>QSizePolicy::Preferred</code> sizeHint 为建议大小, 控件既可以被压缩也可以被拉伸</li>
+<li><code>QSizePolicy::MinimumExpanding</code> sizeHint 为最小大小, 不能被压缩, 被拉伸的优先级更高</li>
+<li><code>QSizePolicy::Expanding</code> sizeHint 为建议大小, 可以被压缩, 被拉伸的优先级更高</li>
+<li><code>QSizePolicy::Ignored</code> sizeHint 的值将会被忽略</li>
+</ul>
+<p>在网上或者书中, 关于这些策略的说明会有很多, 可是如果不是真的自己尝试一下, 很难很好的理解在复杂布局的情况下, 大小策略是如何控制布局的, 尤其是 <code>MinimumExpanding</code>, <code>Expanding</code>, <code>Ignored</code> 这三种. </p>
+<p>对于优先级的概念大家肯定不会陌生, 这里我认为优先级来解释这些策略是更清晰易懂的.</p>
+<p>关于<strong>拉伸</strong> <code>Expanding</code> , <code>MinimumExpanding</code> 优先级相同, 同时要比 <code>Preferred</code> 和 <code>Ignored</code> 拉伸优先级更高, <code>Preferred</code> 和 <code>Ignored</code> 相同.</p>
+<p> 换句话说, 如果两个控件在一个水平箱式布局中管理, 其中一个水平大小策略为 <code>Preferred</code> 另一个为 <code>Expanding</code> 或者 <code>MinimumExpanding</code> 如果水平拉伸窗体, 则 <code>Preferred</code>的控件大小不会改变, <code>Expanding</code> 或者是 <code>MinimumExpanding</code> 会被拉伸.</p>
+<p>同理, 如果两个控件水平大小策略一个为<code>Expanding</code>, 一个是<code>MinimumExpanding</code>, 这时拉伸窗体, 则两个控件均会拉伸.</p>
+<p>多说一句, 如果两个控件都为 <code>Fixed</code> 无法拉伸时, 控件间的间隙会被拉伸.</p>
+<p>关于<strong>压缩</strong> 如果达到了<code>minimumSizeHint</code>是不会被继续压缩了, 但是<code>Ignored</code>是会忽略 <code>sizeHint</code> 和 <code>minimumSizeHint</code> 的属性的, 所以是会继续被压缩的.</p>
+<h4 id="伸缩性"><a href="#伸缩性" class="headerlink" title="伸缩性"></a>伸缩性</h4><p>在 QLayout 中提供了一个和控件大小策略相关的属性, <code>layoutStretch</code> 布局伸缩性, 这个值是一个比例, 在可视化工具中可以更直观的看到这个值的设置, 如果在布局中有三个控件, 则是三个控件的占比, 用逗号分隔, 如: <code>1, 1, 1</code> .</p>
+<p>伸缩性就好理解一些了, 但是要注意的是, 只有<strong>会被压缩或者拉伸</strong>的控件才会受该属性值影响(如 <code>Fixed</code> 是不会受该属性影响)</p>
+<p> 还有一点非常重要的是设置了伸缩性的比值(如果都为0, 则表示不设置) 刚刚提到的<strong>大小策略的优先级将会被忽略</strong>, 还是刚刚的例子, 如果两个控件在一个水平箱式布局中管理, 其中一个水平大小策略为 <code>Preferred</code> 另一个为 <code>Expanding</code>, 设置水平箱式布局的 <code>layoutStretch</code> 为 <code>2, 1</code> 则拉伸时, 并不会像刚刚所说, 只有 <code>Expanding</code> 的控件会被拉伸, 而是都会被拉伸, 按照一个 2 : 1 的拉伸比例拉伸.</p>
+<h4 id="窗体大小约束策略"><a href="#窗体大小约束策略" class="headerlink" title="窗体大小约束策略"></a>窗体大小约束策略</h4><p>最后想介绍一下 QLayout 的 <code>layoutSizeConstraint</code> 属性, 用来约束窗体大小,  只影响窗体, 所以<strong>该属性只对最顶级的 QLayout 起作用</strong>.</p>
+<p> <img src="https://user-gold-cdn.xitu.io/2017/12/13/1604db479dfbd358?w=320&amp;h=678&amp;f=jpeg&amp;s=42338" alt="layoutSizeConstraint"></p>
+<p>关于这几个属性同样的, 简单的介绍网上和书上会有很多, 如果不尝试一下, 浅显的字面意思无法理解这几个属性的作用. 根据我的尝试, 总结如下:</p>
+<ul>
+<li><code>QLayout::SetDefaultConstraint</code> 窗体最小值被设置为 minimumSize 值无法再缩小, <strong>如果 QLayout 内控件有更大的minimumSize, 则会取更大的minimumSize.</strong></li>
+<li><code>QLayout::SetNoConstraint</code> 窗体没有约束策略</li>
+<li><code>QLayout::SetFixedSize</code>，窗体大小被设定为 sizeHint 的大小，无法改变</li>
+<li><code>QLayout::SetMinimumSize</code> 窗体最小为 minimumSize 无法再缩小, <strong>如果 QLayout 内控件有更小的minimumSize, 则会取更小的minimumSize.</strong>, 总结就是的话, 和 Default 不同的地方就是尽可能的小.</li>
+<li><code>QLayout::SetMaxmumSize</code> 同理, 窗体最大值为 maxmumSize , 无法再放大</li>
+<li><code>QLayout::SetMinAndMaxSize</code> 窗体最小为 minimumSize 无法再缩小, 窗体最大值为 maxmumSize , 无法再放大</li>
+</ul>
+<h4 id="其他属性"><a href="#其他属性" class="headerlink" title="其他属性"></a>其他属性</h4><p>关于表单布局和网格布局还有其他的属性约束单元格的一些策略, 如 <code>layoutFieldGrowthPolicy</code> 控件的变化方式策略等等有兴趣可以查看官方文档, 更多的属性间隙, 间隔, 对其方式等等都比较好理解了, 在此也不赘述了.</p>
+<h4 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h4><p><a href="http://doc.qt.io" target="_blank" rel="noopener"> Qt 官方文档点这里</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote>
+<p>&lt;&lt; Qt Creator 快速入门&gt;&gt; 第三版, 霍亚飞著</p>
+</blockquote>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/12/21/tableview-nodata-view/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
