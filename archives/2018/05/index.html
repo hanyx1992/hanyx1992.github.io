@@ -63,7 +63,7 @@
     <meta name="apple-mobile-web-app-title" content="旭丶Joy">
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://yoursite.com">
+    <meta property="og:url" content="http://hanyx1992.github.io">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="归档: 2018/5 | 旭丶Joy">
     <meta property="og:image" content="/img/favicon.png" />
@@ -77,11 +77,11 @@
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="http://yoursite.com" />
+    <meta name="twitter:url" content="http://hanyx1992.github.io" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/archives/2018/05/index.html" />
+        <link rel="canonical" href="http://hanyx1992.github.io/archives/2018/05/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -236,8 +236,8 @@
 
 <!-- Import Font -->
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+    <link href="https://fonts.proxy.ustclug.org/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.proxy.ustclug.org/icon?family=Material+Icons"rel="stylesheet">
 
 
         <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
@@ -250,6 +250,12 @@
 
     <!-- Custom Head -->
     
+
+    
+      <!-- prettify代码高亮主题css引入 -->
+      <link href="/plugins/prettify/themes/tranquil-heart.css" rel="stylesheet">
+    
+
 </head>
 
 
@@ -300,7 +306,12 @@
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            准备工作
+            准备工作Node.js下载 node.js
+Hexo安装 hexo
+执行如下命令
+npm install -g hexo-cli
+我这里安装报错了. 原因是安装全局模块没有权限
+
         
         &nbsp;&nbsp;&nbsp;
         <span>
@@ -312,7 +323,7 @@
         <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
             <!-- Author Avatar -->
             <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="韩元旭's avatar">
+                <img src="https://avatars2.githubusercontent.com/u/11437126?s=460&amp;v=4" width="44px" height="44px" alt="韩元旭's avatar">
             </div>
             <div>
                 <strong>韩元旭</strong>
@@ -386,7 +397,7 @@
 
     <!-- Sidebar Avatar -->
     <div class="sidebar-image">
-        <img src="/img/avatar.png" alt="韩元旭's avatar">
+        <img src="https://avatars2.githubusercontent.com/u/11437126?s=460&amp;v=4" alt="韩元旭's avatar">
     </div>
 
     <!-- Sidebar Email -->
@@ -571,7 +582,7 @@ It will not impact the appearance and can give developers a lot of support :)
 
         <!--Copyright-->
         <div id="copyright">
-            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>旭丶Joy
+            Copyright&nbsp;©&nbsp;2018&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>旭丶Joy
         </div>
 
         <!-- Paradox Footer Right Section -->
@@ -590,6 +601,17 @@ It will not impact the appearance and can give developers a lot of support :)
                 <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
             </div>
         </div>
+
+        <!-- prettify代码高亮js引入 -->
+        
+            <script src="/plugins/prettify/prettify.js"></script>
+            <script type="text/javascript">
+                $(window).load(function(){
+                    $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                    prettyPrint();
+                });
+            </script>
+        
     
 </footer>
 
@@ -633,6 +655,9 @@ It will not impact the appearance and can give developers a lot of support :)
 
 
 
+
+   <!-- 使用 DISQUS js 代码 -->
+<script id="dsq-count-scr" src="//hanyx.disqus.com/count.js" async></script>
 
 
 
