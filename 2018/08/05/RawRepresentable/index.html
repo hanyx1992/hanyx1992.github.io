@@ -522,7 +522,7 @@
 <li>在开发中还经常会在代码补全中, 看到根本不和场合的一些常量名</li>
 <li>通常为了使用方便和易于维护, 还会在将所有的通知定义在一个 xxDefine.h 的头文件中, 并在 pch 文件中引用, 此时如果增删或者修改了任意通知. 将会引起工程的全量重新编译. 也很是头疼.<br>…</li>
 </ol>
-<p>所以, Swift 这种使用方式可谓是十分优雅</p>
+<p>所以, Swift 这种使用方式可谓是十分优雅.</p>
 <h2 id="举一反三"><a href="#举一反三" class="headerlink" title="举一反三"></a>举一反三</h2><p>在开发中, 其实类似于 Notification 这种需要传递字符串的场景还有很多, 我们都可以使用这类使用方法进行优化.</p>
 <h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>假设有这样一个场景, 定义一个类 <code>EventReporter</code> 用来处理埋点请求.</p>
 <pre><code class="swift">class EventReporter {
@@ -563,7 +563,7 @@
 }
 </code></pre>
 <p>从这就更容易看出其原理, 实际上内部的 <code>rawValue</code> 属性就是我们需要使用的 String 类型的事件名, 初始化方法传入该 String 对其赋值即可, 返回 <code>EventID</code> 类型的结构体</p>
-<p>这里发现初始化方法返回的是一个 <code>Optional</code> 类型, 这样使用起来还需要解包, 不太方便, 可以看到 <code>Notification.Name</code> 的初始化方法返回并不是 <code>Optional</code>, 因为定义都是非常确定的事件名(通知名), 所以此处没什么必要使用 <code>Optional</code>, 去掉 <code>?</code> 即可</p>
+<p>这里发现初始化方法返回的是一个 <code>Optional</code> 类型, 这样使用起来还需要解包, 不太方便, 可以看到 <code>Notification.Name</code> 的初始化方法返回并不是 <code>Optional</code>, 因为定义都是非常确定的事件名(通知名), 而且 <code>init</code> 方法中也不会产生异常, 所以此处没什么必要使用 <code>Optional</code>, 去掉 <code>?</code> 即可</p>
 <pre><code class="swift">struct EventID: RawRepresentable {
     typealias RawValue = String
 
@@ -585,7 +585,7 @@
     }
 }
 </code></pre>
-<p>最后, 定义一个埋点事件看看吧~</p>
+<p>最后, 定义一个埋点事件看看吧~, 推荐写到 <code>extension</code> 中易于维护.</p>
 <pre><code class="swift">extension EventID {
     static let LoginPageExposure = EventID(rawValue: &quot;login_page_exposure&quot;)
 }
@@ -593,8 +593,8 @@
 <p>那么使用的时候, </p>
 <pre><code class="swift">EventReporter.sharedInstance.reportEvent(.LoginPageExposure)
 </code></pre>
-<p>当我们打出 <code>.</code> 的时候, 代码不全就已经将 <code>LoginPageExposure</code> 提示给我们了.</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用这种方式优化代码, 不仅可以让代码意图容易理解, 使用也更加简单不会出错. 而且也不会使得 <code>LoginPageExposure</code> 事件名在不想要出现的时候被代码不全功能强行弹出来.</p>
+<p>当我们打出 <code>.</code> 的时候, 代码补全就已经将 <code>LoginPageExposure</code> 提示给我们了.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用这种方式优化代码, 不仅可以让代码意图容易理解, 使用也更加简单不会出错. 而且也不会使得 <code>LoginPageExposure</code> 事件名在不想要出现的时候被代码补全功能强行弹出来.</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://developer.apple.com/documentation/foundation/nsnotification/name" target="_blank" rel="noopener">NSNotification.Name</a></li>
 <li><a href="https://developer.apple.com/documentation/swift/rawrepresentable" target="_blank" rel="noopener">RawRepresentable</a></li>
