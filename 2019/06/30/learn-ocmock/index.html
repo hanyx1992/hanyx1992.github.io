@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            OCMock 源码学习笔记 | 
+        
+        旭丶Joy
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?VbSuLZyOpxJuf3o2tYEOVg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night.min.css?QlnGZk/a4+d8XbwtXBDPiA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="旭丶Joy">
+    <meta name="msapplication-starturl" content="http://hanyx1992.github.io/2019/06/30/learn-ocmock/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="旭丶Joy">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://hanyx1992.github.io/2019/06/30/learn-ocmock/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="OCMock 源码学习笔记 | 旭丶Joy">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="">
+    
+
+    
+        <meta property="article:published_time" content="Sun Jun 30 2019 00:00:00 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jun 30 2019 18:47:31 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://hanyx1992.github.io/2019/06/30/learn-ocmock/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://hanyx1992.github.io/2019/06/30/learn-ocmock/index.html",
+    "headline": "OCMock 源码学习笔记",
+    "datePublished": "Sun Jun 30 2019 00:00:00 GMT+0800",
+    "dateModified": "Sun Jun 30 2019 18:47:31 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "韩元旭",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://avatars2.githubusercontent.com/u/11437126?s=460&amp;v=4"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "旭丶Joy",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#背景"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#消息转发"><span class="post-toc-number">2.</span> <span class="post-toc-text">消息转发</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NSProxy"><span class="post-toc-number">3.</span> <span class="post-toc-text">NSProxy</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#YYWeakProxy"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">YYWeakProxy</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现多继承"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">实现多继承</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#例子"><span class="post-toc-number">4.</span> <span class="post-toc-text">例子</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OCMClassMock"><span class="post-toc-number">5.</span> <span class="post-toc-text">OCMClassMock</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OCMStub"><span class="post-toc-number">6.</span> <span class="post-toc-text">OCMStub</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#enableXXFeature"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">enableXXFeature</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#展开"><span class="post-toc-number">6.1.1.</span> <span class="post-toc-text">展开</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Stub"><span class="post-toc-number">6.1.2.</span> <span class="post-toc-text">Stub</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#andReturn"><span class="post-toc-number">6.1.3.</span> <span class="post-toc-text">andReturn</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#调用过程"><span class="post-toc-number">6.1.4.</span> <span class="post-toc-text">调用过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sharedRemoteConfig"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">sharedRemoteConfig</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#StopMocking"><span class="post-toc-number">7.</span> <span class="post-toc-text">StopMocking</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后"><span class="post-toc-number">8.</span> <span class="post-toc-text">最后</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#References"><span class="post-toc-number">9.</span> <span class="post-toc-text">References</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://images.unsplash.com/photo-1530037768512-3c9a22715452?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3750&q=80)">
+    
+            <p class="article-headline-p">
+                OCMock 源码学习笔记
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="https://avatars2.githubusercontent.com/u/11437126?s=460&v=4" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>韩元旭</strong>
+        <span>6月 30, 2019</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=OCMock 源码学习笔记&url=http://hanyx1992.github.io/2019/06/30/learn-ocmock/index.html&pic=http://hanyx1992.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=OCMock 源码学习笔记&url=http://hanyx1992.github.io/2019/06/30/learn-ocmock/index.html&via=韩元旭" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://hanyx1992.github.io/2019/06/30/learn-ocmock/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://hanyx1992.github.io/2019/06/30/learn-ocmock/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=旭丶Joy&title=OCMock 源码学习笔记&summary=&pics=http://hanyx1992.github.io/img/favicon.png&url=http://hanyx1992.github.io/2019/06/30/learn-ocmock/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用 XCTest + OCMock 写单元测试也有一段时间了. 一直没了解 OCMock 到底是怎么实现的, 所以就想找个时间读读源码, 揭开 OCMock 的神秘面纱. 在阅读源码时发现比较核心的机制就是 NSProxy + 消息转发, 所以在看源码之前, 先简单复习一下相关知识.</p>
+<h2 id="消息转发"><a href="#消息转发" class="headerlink" title="消息转发"></a>消息转发</h2><p>先来看看消息转发, Objective-C 的消息机制就不赘述了, 在 <code>objc_msgSend</code> 时, 如果对象的和其父类一直到根类都没有在方法缓存和方法列表中找到对应的方法就会发生这样的错误: <code>unrecognized selector sent to instance</code>, 但是在崩溃前, 会有消息转发的机制来尝试挽救.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/28/16b9dbc0d661e312?w=2024&amp;h=1522&amp;f=png&amp;s=448881" alt="消息转发简化整理"></p>
+<p>第一步, 首先会调用 <code>forwardingTargetForSelector:</code> 方法获取一个可以处理该 <code>Selector</code> 的对象. 对该对象重新进行发送消息, 如果返回为 <code>nil</code>, 则走第二步.</p>
+<p>第二步, 调用 <code>methodSignatureForSelector:</code> 方法来获得方法签名 <code>NSMethodSignature</code>, 包含 <code>Selector</code> 和 参数的信息, 用于生成 <code>NSInvocation</code>, 如果返回为 <code>nil</code>, 则抛出 <code>doesNotRecognizeSelector</code> 异常.</p>
+<p>第三步, 调用 <code>forwardInvocation:</code> 对 <code>NSInvocation</code> 进行处理, 如果本身, 父类一直到根类都没有处理, 则还是会抛出 <code>doesNotRecognizeSelector</code> 异常.</p>
+<p>简单整理消息转发到机制就是这样, 更深的原理推荐阅读杨萧玉大神的这篇文章: <a href="http://yulingtianxia.com/blog/2016/06/15/Objective-C-Message-Sending-and-Forwarding/" target="_blank" rel="noopener">Objective-C 消息发送与转发机制原理</a>.</p>
+<h2 id="NSProxy"><a href="#NSProxy" class="headerlink" title="NSProxy"></a>NSProxy</h2><blockquote>
+<p>An abstract superclass defining an API for objects that act as stand-ins for other objects or for objects that don’t exist yet.</p>
+</blockquote>
+<p>在文档中的解释是这样的, NSProxy 是一个抽象的父类(说根类更为合适), 用于定义对象的 API, 可以充当其他对象或者已经不存在的对象的替身. </p>
+<p>在 iOS 中的根类是 NSObject 和 NSProxy, NSObject 即是根类也是协议, NSProxy 也实现了该协议, 并且作为一个抽象类, 它并不提供初始化方法, 如果接收到它没有响应的消息时会抛出异常, 所以, 需要使用子类继承实现初始化方法, 然后通过重写 <code>forwardInvocation:</code> 和<code>methodSignatureForSelector:</code> 方法来处理它本身未实现的消息处理.</p>
+<p>这里列出两个经常会使用到的小 Tips.</p>
+<h3 id="YYWeakProxy"><a href="#YYWeakProxy" class="headerlink" title="YYWeakProxy"></a>YYWeakProxy</h3><p><code>YYWeakProxy</code> 是 <code>YYKit</code> 中提供的工具, 用于持有一个 <code>weak</code> 对象, 通常用来解决 <code>NSTimer</code> 和 <code>CADisplayLink</code> 循环引用的问题. 比如我们经常会在对象内使用 <code>NSTimer</code>, 该对象强引用着 <code>NSTimer</code>, 而该对象在作为 <code>target</code> 时就又会被 <code>NSTimer</code> 强引用着, 就构成了循环引用, 导致都无法释放.</p>
+<p><a href="https://github.com/ibireme/YYKit/blob/4e1bd1cfcdb3331244b219cbd37cc9b1ccb62b7a/YYKit/Utility/YYWeakProxy.m" target="_blank" rel="noopener">点这里查看全部源码</a></p>
+<p>简单介绍一下 <code>YYWeakProxy</code> 是如何实现的, 首先使用初始化方法, 弱引用着 <code>target</code> 对象.</p>
+<pre><code class="objc">- (instancetype)initWithTarget:(id)target {
+    _target = target;
+    return self;
+}
+</code></pre>
+<p>通过实现 <code>forwardingTargetForSelector:</code> 方法来将消息转发给 <code>_taget</code>, 充当了桥梁, 破除了如 <code>NSTimer</code> 对 <code>target</code> 的强引用.</p>
+<pre><code class="objc">- (id)forwardingTargetForSelector:(SEL)selector {
+    return _target;
+}
+</code></pre>
+<p>然后这里又另外实现了这两个方法, 这是为了什么呢?</p>
+<pre><code class="objc">- (void)forwardInvocation:(NSInvocation *)invocation {
+    void *null = NULL;
+    [invocation setReturnValue:&amp;null];
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector {
+    return [NSObject instanceMethodSignatureForSelector:@selector(init)];
+}
+</code></pre>
+<p>因为 <code>target</code> 是弱引用的, 如果释放了, 就会被置为 <code>nil</code>, 转发方法 <code>forwardingTargetForSelector:</code> 就相当于返回了 <code>nil</code>, 那么没有办法处理消息, 则会导致发生崩溃. </p>
+<p>所以这里就是随便返回了一个方法签名, 直接返回 <code>NSObject</code> 的 <code>init</code> 的方法签名, <code>invocation</code> 并未调用 <code>invoke</code> 只是返回 <code>nil</code>, 相当于此时发送什么消息都会返回 <code>nil</code>, 不会崩溃.</p>
+<h3 id="实现多继承"><a href="#实现多继承" class="headerlink" title="实现多继承"></a>实现多继承</h3><p>在 objc 中是不能多继承的, 但是我们可以使用 NSProxy 来模拟多继承的效果, 其实将上面的例子的 <code>target</code> 变成一个数组来持有多个 <code>target</code>.</p>
+<p>然后将方法按照 <code>respondsToSelector:</code> 谁能处理, 来转发给各个 <code>target</code> 就可以实现多继承了, 比较简单, 这里用最简单的方法实现如下:</p>
+<pre><code class="objc">- (id)forwardingTargetForSelector:(SEL)selector {
+    __block id target = nil;
+    [self.tagets enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj respondsToSelector:selector]) {
+            target = obj;
+            *stop = YES;
+        }
+    }];
+    return target;
+}
+</code></pre>
+<p>接下来进入正题, 来开始看一下 <code>OCMock</code> 的核心源码实现.</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>我准备从一个经常会用到的例子来一点一点阅读 OCMock 的源码实现.</p>
+<p>在单元测试中, 经常需要屏蔽掉外界因素的干扰, 比如方法中依赖的外部方法的结果, 在我们的项目中, 大量的使用了下发的开关配置, 比如下面这行代码来判断是否开启某个功能.</p>
+<pre><code class="objc">BOOL enableXX = [[RemoteConfig sharedRemoteConfig] enableXXFeature];
+</code></pre>
+<p>使用 OCMock 来 Mock 该结果的方式如下:</p>
+<pre><code class="objc">// Setup
+id configMock = OCMClassMock([RemoteConfig class]);
+OCMStub([configMock sharedRemoteConfig]).andReturn(configMock);
+OCMStub([configMock enableXXFeature]).andReturn(YES);
+// Assert
+...
+// Teardown
+[configMock stopMocking];
+</code></pre>
+<p>第一行创建一个 <code>RemoteConfig</code> 类的 mock 对象, 命名为 <code>configMock</code>;</p>
+<p>第二行 mock 掉 <code>[configMock sharedRemoteConfig]</code> 的<strong>类方法</strong>, 并且 <code>andReturn</code> 添加返回值为该 mock 对象. 这样通过 <code>[RemoteConfig sharedRemoteConfig]</code> 就可以永远返回一个 mock 的对象, 接下来只要在对这个 mock 的对象的 <code>enableXXFeature</code> 方法添加一个返回值就可以实现 mock 开关了;</p>
+<p>第三行, mock 掉 <code>[configMock enableXXFeature]</code> 的<strong>实例方法</strong>并且 <code>andReturn</code> 添加返回值恒定为 <code>YES</code>.</p>
+<p><code>OCMock</code> 使用了大量的宏定义, 那么就通过 <code>Xcode</code> 提供的 <code>Preprocess</code> 的功能来一步一步看看到底是怎么回事吧.</p>
+<h2 id="OCMClassMock"><a href="#OCMClassMock" class="headerlink" title="OCMClassMock"></a>OCMClassMock</h2><p>第一行, <code>OCMClassMock</code> 宏展开后如下:</p>
+<pre><code class="objc">id configMock = [OCMockObject niceMockForClass:[RemoteConfig class]];
+</code></pre>
+<p>这个 <code>OCMockObject</code> 就是我们刚刚说到的 <code>NSProxy</code> 的一个子类, 来实现消息转发, <code>niceMockForClass</code> 其实就是调用了</p>
+<pre><code class="objc">+ (id)mockForClass:(Class)aClass {
+    return [[[OCClassMockObject alloc] initWithClass:aClass] autorelease];
+}
+</code></pre>
+<p>只不过设置了一个 <code>isNice</code> 的实例变量, 并且标记为 <code>YES</code>, 这个不影响核心原理的理解, 简单说一下, OCMock 中使用 <code>OCMStrictClassMock</code> 可以进行一个严格的 mock, 如果调用没有 <code>Stub</code> 住的方法时, 就会崩溃, 而这个 <code>OCMClassMock</code> 就是 <code>nice</code> 的, 没有 <code>Stub</code> 的方法会进行一下保护, 不会产生崩溃, 比较 <code>nice</code>, 我们比较常用到的就是比较 <code>nice</code> 的 <code>OCMClassMock</code>.</p>
+<h2 id="OCMStub"><a href="#OCMStub" class="headerlink" title="OCMStub"></a>OCMStub</h2><p>整个 <code>OCMStub</code> 是最核心的点, 其他的 <code>Expect</code> 和 <code>Reject</code> 原理大都一致, 一点一点看.</p>
+<h3 id="enableXXFeature"><a href="#enableXXFeature" class="headerlink" title="enableXXFeature"></a>enableXXFeature</h3><h4 id="展开"><a href="#展开" class="headerlink" title="展开"></a>展开</h4><pre><code>OCMStub([configMock enableXXFeature]).andReturn(YES);
+</code></pre><p>先从这行代码来看起, 先看 OCMStub 的展开, 我稍微整理了一下, 代码如下:</p>
+<pre><code class="objc">({
+    [OCMMacroState beginStubMacro];
+    OCMStubRecorder *recorder = ((void *)0);
+    @try{
+        [configMock enableXXFeature];
+    } @finally {
+        recorder = [OCMMacroState endStubMacro];
+    }
+    recorder;
+});
+</code></pre>
+<p>其中上下两个 <code>begin</code> 和 <code>end</code> 的方法就是为了增加一个 <code>OCMStubRecorder</code> 标记, 并且存放在当前线程的字典中. 代码如下:</p>
+<pre><code class="objc">+ (void)beginStubMacro {
+    OCMStubRecorder *recorder = [[[OCMStubRecorder alloc] init] autorelease];
+    OCMMacroState *macroState = [[OCMMacroState alloc] initWithRecorder:recorder];
+    [NSThread currentThread].threadDictionary[OCMGlobalStateKey] = macroState;
+    [macroState release];
+}
+
++ (OCMStubRecorder *)endStubMacro {
+    NSMutableDictionary *threadDictionary = [NSThread currentThread].threadDictionary;
+    OCMMacroState *globalState = threadDictionary[OCMGlobalStateKey];
+    OCMStubRecorder *recorder = [(OCMStubRecorder *)[globalState recorder] retain];
+    [threadDictionary removeObjectForKey:OCMGlobalStateKey];
+    return [recorder autorelease];
+}
+</code></pre>
+<h4 id="Stub"><a href="#Stub" class="headerlink" title="Stub"></a>Stub</h4><p>关键在中间一行 <code>[configMock enableXXFeature]</code> 的调用, <strong>存在这个 <code>OCMStubRecorder</code> 标记时</strong>, 会在消息转发的 <code>forwardingTargetForSelector:</code> 这个方法中进行处理, 记录 <code>configMock</code> 对象的同时, 返回这个 <code>recorder</code> 对象进行处理.</p>
+<pre><code class="objc">- (id)forwardingTargetForSelector:(SEL)aSelector {
+    if([OCMMacroState globalState] != nil) {
+        OCMRecorder *recorder = [[OCMMacroState globalState] recorder];
+        [recorder setMockObject:self];
+        return recorder;
+    }
+    return nil;
+}
+</code></pre>
+<p>所以便理解了上面为什么要将 <code>recorder</code> 对象放入当前线程的字典中, 是为了同样是这样一行代码 <code>[configMock enableXXFeature]</code>, 在是否有 <code>recorder</code> 时, 可以有两种截然不同的处理路线, 很是巧妙. 即在定义 <code>Stub</code> 时, 可以交给 <code>recorder</code> 去处理, 而在真正调用该方法时, 可以由这个 mock 的对象按照消息转发接下来的流程处理.</p>
+<p>这个 <code>recorder</code> 对象是 <code>OCMStubRecorder</code> 类型, 继承自 <code>OCMRecorder</code>, 而 <code>OCMRecorder</code> 又继承自 <code>NSProxy</code>. 所以这个 <code>recorder</code> 也需要处理消息转发机制. </p>
+<p><code>recorder</code> 在 <code>methodSignatureForSelector:</code> 中, 先按照实例方法去获取 mock 对象的方法签名, 如果没有的话再按照类方法去获取方法签名, 如果获取到则在 <code>invocationMatcher</code> 记录标记一下, 是<code>类方法</code>, 还是没获取到就会返回 <code>nil</code> 了, 按照消息转发机制, 则会抛出 <code>doesNotRecognizeSelector</code> 异常.</p>
+<pre><code class="objc">- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    if([invocationMatcher recordedAsClassMethod])
+        return [mockedClass methodSignatureForSelector:aSelector];
+
+    NSMethodSignature *signature = [mockObject methodSignatureForSelector:aSelector];
+    if(signature == nil) {
+       if([mockedClass respondsToSelector:aSelector]) {
+            // 标记一下证明该 Selector 是类方法, 标记到 invocationMatcher 上
+            [self classMethod];
+            // 重新调用这个方法取方法前面, 这样就会被前两行返回
+            signature = [self methodSignatureForSelector:aSelector];
+        }
+    }
+    return signature;
+}
+</code></pre>
+<p>前面两行的意思是如果已经被标记为类方法了, 则直接返回类方法的方法签名.</p>
+<p>再来看 <code>forwardInvocation:</code> 处理的方法, 我按照继承关系整理了一下方便阅读:</p>
+<pre><code class="objc">- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    [anInvocation setTarget:nil];
+    [invocationMatcher setInvocation:anInvocation];
+    [mockObject addStub:invocationMatcher];
+}
+</code></pre>
+<p>其目的就是通过 <code>setTarget:nil</code> 来禁止这个 <code>invocation</code> 调用, 用 <code>invocationMatcher</code> 来记录并且管理一下这个 <code>invocation</code>, 然后把这个 <code>invocationMatcher</code> 传递给 <code>mockObject</code> 就是我们上面记录过的 <code>configMock</code> 对象.</p>
+<p>在 <code>addStub:</code> 方法中, 如果是实例方法只是将这个 <code>invocationMatcher</code> 保存到了一个数组中, 如果是类方法等下再看 Stub <code>sharedRemoteConfig</code> 这个类方法时再看.</p>
+<p>这样整个 <code>OCMStub</code> 的过程就理解了. 在简单整理一下对象间的关系, 方便理解.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/30/16ba7d642173b098?w=1724&amp;h=280&amp;f=png&amp;s=70507" alt="对象间关系-1"></p>
+<p>mock 对象持有一个 <code>invocationMatcher</code> 对象的数组, 每一个 <code>invocationMatcher</code> 对象表示一次的 Stub(或者是 Expect 等), 还记录着该方法是个类方法还是实例方法.</p>
+<p>每一个 <code>invocationMatcher</code> 持有 <code>invocation</code> 对象, 用于进行在调用的时候, 和调用的 <code>invocation</code> 进行匹配, 以及参数校验等逻辑.</p>
+<p>在 Stub 流程中, 这个 <code>recorder</code> 对象相当于一个流程管理者, 记录了该流程的信息, 再 Stub 语句完整结束后, 其实就被释放了, 后面在看.</p>
+<h4 id="andReturn"><a href="#andReturn" class="headerlink" title="andReturn"></a>andReturn</h4><p><code>OCMStub</code> 实际上是返回了 <code>OCMStubRecorder</code> 这个对象. 在这个对象中记录需要的方法返回值. 展开后如下:</p>
+<pre><code class="objc">recorder._andReturn(({
+    __typeof__((YES)) _val = ((YES));
+    NSValue *_nsval = [NSValue value:&amp;_val withObjCType:@encode(__typeof__(_val))];
+    if (OCMIsObjectType(@encode(__typeof(_val)))) {
+        objc_setAssociatedObject(_nsval, &quot;OCMAssociatedBoxedValue&quot;, *(__unsafe_unretained id *) (void *) &amp;_val, OBJC_ASSOCIATION_RETAIN);
+    }
+    _nsval;
+}));
+</code></pre>
+<p>补充说明一下, <code>@encode</code> 是一个编译器指令, 返回一个类型内部进行表示的字符串, 比如这里使用的 <code>YES</code> 是 <code>BOOL</code> 类型, 内部字符串表示就是 <code>&quot;B&quot;</code>, 更深入的, 更方便对类型进行判断和处理, 关于 <code>@encode</code> 推荐阅读这篇文章</p>
+<p><a href="https://nshipster.cn/type-encodings/" target="_blank" rel="noopener">Type Encodings</a></p>
+<p>所以, 整体逻辑简单来说实际上就是将这个返回值通过 <code>NSValue</code> 进行包装, 可以理解为</p>
+<pre><code class="objc">recorder._addReturn(_nsval);
+</code></pre>
+<p>这个 <code>_addReturn()</code> 是一个 <code>block</code>, 传入一个 <code>NSValue</code>, 返回自身方便链式编写. 本质上就是根据返回值的类型, 是基本类型还是对象使用不同的 <code>ValueProvider</code> 进行包装. 基本类型使用 <code>OCMBoxedReturnValueProvider</code>, 对象则使用 <code>OCMReturnValueProvider</code>.</p>
+<p>在来看刚刚的对象间关系:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/30/16ba7da283995f84?w=1784&amp;h=380&amp;f=png&amp;s=90595" alt="对象间关系-2"></p>
+<p>这时就增加了 <code>ValueProviders</code> 的逻辑, 每一个 <code>invocationMatcher</code> 持有多个. 因为不仅仅可以 <code>andReturn</code> 指定返回值, 例如还可以 <code>andDo</code> 指定一个 <code>block</code><br>, 在方法被调用后执行等等. 不过感觉 <code>OCMock</code> 此处的处理还可以再完善一下, 这些类似于的 <code>ValueProviders</code> 都遵从一个 <code>ValueProviders</code> 的协议, 然后协议要求实现 <code>handleInvocation:</code>, 不过既然是人家内部的逻辑, 也无所谓啦.</p>
+<h4 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h4><p>调用过程中实际上是没有 <code>recorder</code> 的, 在 <code>OCMStub</code> 整行代码结束后就被释放啦. 对象关系就变成这样了:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/30/16ba7fc1370d6486?w=1734&amp;h=314&amp;f=png&amp;s=73617" alt="对象间关系-3"></p>
+<p>真正调用的是对 <code>configMock</code> 即 <code>OCClassMockObject</code> 进行调用如  <code>enableXXFeature</code> 方法的过程就像前面说过的, 由于没有了 <code>recorder</code>, <code>forwardingTargetForSelector:</code> 会返回 <code>nil</code> 接下来的消息转发流程回去获取方法签名, 然后在 <code>forwardInvocation:</code> 中处理.</p>
+<pre><code class="objc">- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    @try
+    {
+        if([self handleInvocation:anInvocation] == NO)
+            [self handleUnRecordedInvocation:anInvocation];
+    } @catch(NSException *e) {
+        ...
+    }
+}
+</code></pre>
+<p>核心步骤在 <code>handleInvocation:</code> 中, 整理如下</p>
+<pre><code class="objc">- (BOOL)handleInvocation:(NSInvocation *)anInvocation {
+
+// 1. 记录 `invocation` 用于实现 `Expect` 的校验逻辑
+    @synchronized(invocations) {
+        [anInvocation retainObjectArgumentsExcludingObject:self];
+        [invocations addObject:anInvocation];
+    }
+
+// 2. 取刚刚 `addStub:` 中记录的 `invocationMatcher` 进行匹配
+    OCMInvocationStub *stub = nil;
+    @synchronized(stubs) {
+        for(stub in stubs) {
+            if([stub matchesInvocation:anInvocation])
+                break;
+        }
+        [stub retain];
+    }
+    if(stub == nil)
+        return NO;
+
+// ...expectaion 相关逻辑省略
+
+// 3. 这个 stub 就是 `invocationMatcher`, 交由它处理.
+    @try {
+        [stub handleInvocation:anInvocation];
+    } @finally {
+        [stub release];
+    }
+
+    return YES;
+}
+</code></pre>
+<p><code>invocationMatcher</code> 的处理逻辑如下:</p>
+<pre><code class="objc">- (void)handleInvocation:(NSInvocation *)anInvocation {
+    NSMethodSignature *signature = [recordedInvocation methodSignature];
+    NSUInteger n = [signature numberOfArguments];
+    for(NSUInteger i = 2; i &lt; n; i++) {
+        id recordedArg = [recordedInvocation getArgumentAtIndexAsObject:i];
+        id passedArg = [anInvocation getArgumentAtIndexAsObject:i];
+
+        if([recordedArg isProxy])
+            continue;
+
+        if([recordedArg isKindOfClass:[NSValue class]])
+            recordedArg = [OCMArg resolveSpecialValues:recordedArg];
+
+        if(![recordedArg isKindOfClass:[OCMArgAction class]])
+            continue;
+
+        [recordedArg handleArgument:passedArg];
+    }
+
+// 4. 通过记录的 `ValueProvider` 交给它去处理
+    [invocationActions makeObjectsPerformSelector:@selector(handleInvocation:) withObject:anInvocation];
+}
+</code></pre>
+<p>以 <code>OCMBoxedReturnValueProvider</code> 为例子, 处理逻辑如下</p>
+<pre><code class="objc">- (void)handleInvocation:(NSInvocation *)anInvocation {
+    const char *returnType = [[anInvocation methodSignature] methodReturnType];
+    NSUInteger returnTypeSize = [[anInvocation methodSignature] methodReturnLength];
+    char valueBuffer[returnTypeSize];
+    NSValue *returnValueAsNSValue = (NSValue *)returnValue;
+
+// 5. 将返回值设置到 `invocation` 中 `[anInvocation setReturnValue:valueBuffer]`
+    if([self isMethodReturnType:returnType compatibleWithValueType:[returnValueAsNSValue objCType]]) {
+        [returnValueAsNSValue getValue:valueBuffer];
+        [anInvocation setReturnValue:valueBuffer];
+    } else if([returnValueAsNSValue getBytes:valueBuffer objCType:returnType]) {
+        [anInvocation setReturnValue:valueBuffer];
+    } else {
+        [NSException raise:NSInvalidArgumentException
+                    format:@&quot;Return value cannot be used for method; method signature declares &#39;%s&#39; but value is &#39;%s&#39;.&quot;, returnType, [returnValueAsNSValue objCType]];
+    }
+}
+</code></pre>
+<p>这样就完成了整个调用过程, 其中如果没有找到匹配的方法等等原因则会判断如果不是 <code>isNice</code> 则会抛出异常.</p>
+<pre><code class="objc">- (void)handleUnRecordedInvocation:(NSInvocation *)anInvocation {
+    if(isNice == NO) {
+        [NSException raise:NSInternalInconsistencyException format:@&quot;%@: unexpected method invoked: %@ %@&quot;, [self description], [anInvocation invocationDescription], [self _stubDescriptions:NO]];
+    }
+}
+</code></pre>
+<h3 id="sharedRemoteConfig"><a href="#sharedRemoteConfig" class="headerlink" title="sharedRemoteConfig"></a>sharedRemoteConfig</h3><p>看明白了实例方法实际上是通过 mock 对象进行消息转发进行处理, 然后获取期望的结果并返回的, 那类方法又是如何实现 mock 的呢?</p>
+<p>关键就在初始化时做了一个准备工作 <code>prepareClassForClassMethodMocking</code> 和刚刚 <code>addStub:</code> 的处理上, 一个一个看.</p>
+<p><code>prepareClassForClassMethodMocking</code> 用注释总结整理如下:</p>
+<pre><code class="objc">- (void)prepareClassForClassMethodMocking
+{
+// 1. 排除一些会引起错误的类 `NSString` / `NSArray` / `NSManagedObject`
+    if([[mockedClass class] isSubclassOfClass:[NSString class]] || [[mockedClass class] isSubclassOfClass:[NSArray class]])
+        return;
+
+    if([mockedClass isSubclassOfClass:objc_getClass(&quot;NSManagedObject&quot;)])
+        return;
+
+// 2. 如果之前有对该类进行的 mock 未停止则停止
+    id otherMock = OCMGetAssociatedMockForClass(mockedClass, NO);
+    if(otherMock != nil)
+        [otherMock stopMockingClassMethods];
+
+    OCMSetAssociatedMockForClass(self, mockedClass);
+
+// 3. 动态创建一个 mock 的类(例子里是 `RemoteConfig` )的子类.
+    classCreatedForNewMetaClass = OCMCreateSubclass(mockedClass, mockedClass);
+    originalMetaClass = object_getClass(mockedClass);
+    id newMetaClass = object_getClass(classCreatedForNewMetaClass);
+
+// 4. 创建一个空方法 `initializeForClassObject`, 作为子类的 `initialize` 方法, 以便排除 mock 类 `initialize` 中特殊逻辑的影响.
+    Method myDummyInitializeMethod = class_getInstanceMethod([self mockObjectClass], @selector(initializeForClassObject));
+    const char *initializeTypes = method_getTypeEncoding(myDummyInitializeMethod);
+    IMP myDummyInitializeIMP = method_getImplementation(myDummyInitializeMethod);
+    class_addMethod(newMetaClass, @selector(initialize), myDummyInitializeIMP, initializeTypes);
+
+// 5. `object_setClass(mockedClass, newMetaClass)` 设置 mock 的类的 Class 为新创建的子类的元类.
+    object_setClass(mockedClass, newMetaClass);
+
+// 6. 为其元类添加一个 `+ (void)forwardInvocation:` 的实现 `forwardInvocationForClassObject:` 以便可以对类方法进行消息转发.
+    Method myForwardMethod = class_getInstanceMethod([self mockObjectClass], @selector(forwardInvocationForClassObject:));
+    IMP myForwardIMP = method_getImplementation(myForwardMethod);
+    class_addMethod(newMetaClass, @selector(forwardInvocation:), myForwardIMP, method_getTypeEncoding(myForwardMethod));
+
+// 7. 遍历该元类的方法列表, 对其自身的方法(非 `NSObject` 继承来的) 方法执行 `setupForwarderForClassMethodSelector:`
+    NSArray *methodBlackList = @[@&quot;class&quot;, @&quot;forwardingTargetForSelector:&quot;, @&quot;methodSignatureForSelector:&quot;, @&quot;forwardInvocation:&quot;, @&quot;isBlock&quot;,
+            @&quot;instanceMethodForwarderForSelector:&quot;, @&quot;instanceMethodSignatureForSelector:&quot;];
+    [NSObject enumerateMethodsInClass:originalMetaClass usingBlock:^(Class cls, SEL sel) {
+        if((cls == object_getClass([NSObject class])) || (cls == [NSObject class]) || (cls == object_getClass(cls)))
+            return;
+        NSString *className = NSStringFromClass(cls);
+        NSString *selName = NSStringFromSelector(sel);
+        if(([className hasPrefix:@&quot;NS&quot;] || [className hasPrefix:@&quot;UI&quot;]) &amp;&amp;
+           ([selName hasPrefix:@&quot;_&quot;] || [selName hasSuffix:@&quot;_&quot;]))
+            return;
+        if([methodBlackList containsObject:selName])
+            return;
+        @try
+        {
+            [self setupForwarderForClassMethodSelector:sel];
+        }
+        @catch(NSException *e)
+        {
+            // ignore for now
+        }
+    }];
+}
+</code></pre>
+<p><code>addStub:</code> 的特殊逻辑实际上也是执行了 <code>setupForwarderForClassMethodSelector:</code>, 该方法进行了排重. 实现如下:</p>
+<pre><code>- (void)setupForwarderForClassMethodSelector:(SEL)selector {
+    SEL aliasSelector = OCMAliasForOriginalSelector(selector);
+    if(class_getClassMethod(mockedClass, aliasSelector) != NULL)
+        return;
+
+    Method originalMethod = class_getClassMethod(mockedClass, selector);
+    IMP originalIMP = method_getImplementation(originalMethod);
+    const char *types = method_getTypeEncoding(originalMethod);
+
+    Class metaClass = object_getClass(mockedClass);
+    IMP forwarderIMP = [originalMetaClass instanceMethodForwarderForSelector:selector];
+    class_addMethod(metaClass, aliasSelector, originalIMP, types);
+    class_replaceMethod(metaClass, selector, forwarderIMP, types);
+}
+</code></pre><p>添加一个 <code>ocmock_replaced_原方法名</code>, 将该方法指向原来方法的方法指针, 并且将原来方法指向到一个不存在的方法上, 以便可以走消息转发, 也就是刚刚添加的 <code>forwardInvocationForClassObject:</code></p>
+<p>在 <code>forwardInvocationForClassObject:</code> 方法真正调用时, 也是调用了 <code>handleInvocation:</code>, 便统一了消息转发的流程, 实现了对类方法的 mock, 不同的是对于没有匹配到的方法直接执行了 <code>invocation</code>, </p>
+<h2 id="StopMocking"><a href="#StopMocking" class="headerlink" title="StopMocking"></a>StopMocking</h2><p>对于 <code>stopMocking</code> 方法的调用不是必须的, 在 mock 对象释放掉的时候 <code>dealloc</code> 中会先调用 <code>stopMocking</code>, 其中干的事就是打扫战场, 由于设置了 mock 对象的元类为动态创建的子类的元类, 所以需要还原</p>
+<pre><code>object_setClass(mockedClass, originalMetaClass);
+</code></pre><p>然后删除掉动态创建的子类, 选择使用动态创建的子类作为元类并且添加方法, 而不是直接修改元类中的方法, 也是为了最后还原比较容易, 直接释放掉即可.</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>对于其他的 <code>OCMPartialMock</code> 和 <code>OCMProtocolMock</code> 等, 基本原理也都相似, 就不再记录了, 关于 OCMock 大体的原理基本弄清楚了, 其实还有很多细节还得随着继续学习再加深理解, 欢迎交流👏 .</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://github.com/erikdoe/ocmock" target="_blank" rel="noopener">OCMock</a></li>
+<li><a href="http://yulingtianxia.com/blog/2016/06/15/Objective-C-Message-Sending-and-Forwarding/" target="_blank" rel="noopener">Objective-C 消息发送与转发机制原理</a></li>
+<li><a href="https://github.com/ibireme/YYKit" target="_blank" rel="noopener">YYKit</a></li>
+<li><a href="https://nshipster.cn/type-encodings/" target="_blank" rel="noopener">Type Encodings</a></li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 Gitalk -->
+<div id="gitalk-comment">
+    <!-- Gitalk 评论框 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script>
+    var gitalk = new Gitalk({
+            clientID: '23fd7f3f926d8456b2fd',
+            clientSecret: '1133e904d4c8bc3837e10a7cf00b6be86eb6e171',
+            repo: 'comments',
+            owner: 'hanyx1992',
+            admin: ['hanyx1992'],
+            // facebook-like distraction free mode
+            distractionFreeMode: false,
+            id: 'OCMock 源码学习笔记'  //额外加入了这句防止名称超长导致报错
+        })
+   gitalk.render('gitalk-container')
+</script>
+</div>
+<style>
+    #gitalk-comment {
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/08/05/RawRepresentable/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="https://avatars2.githubusercontent.com/u/11437126?s=460&amp;v=4" alt="韩元旭's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        hanyx1992@sina.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/timeline" title="时间">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="链接">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                链接
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="https://github.com/hanyx1992" title="GitHub">
+                
+                    <i class="material-icons sidebar-material-icons">face</i>
+                
+                GitHub
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+        <a href="https://weibo.com/hanyuanxu" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-weibo">
+                <span class="visuallyhidden">Weibo</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/hanyx1992" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;旭丶Joy
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?Bn9UzEm8RrBSxqyZB0zPjA==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+   <!-- GitTalk -->
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 2018;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
