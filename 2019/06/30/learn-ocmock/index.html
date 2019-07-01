@@ -247,7 +247,7 @@
 
     
         <meta property="article:published_time" content="Sun Jun 30 2019 00:00:00 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jun 30 2019 18:47:31 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jun 30 2019 23:48:31 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -270,7 +270,7 @@
     "mainEntityOfPage": "http://hanyx1992.github.io/2019/06/30/learn-ocmock/index.html",
     "headline": "OCMock 源码学习笔记",
     "datePublished": "Sun Jun 30 2019 00:00:00 GMT+0800",
-    "dateModified": "Sun Jun 30 2019 18:47:31 GMT+0800",
+    "dateModified": "Sun Jun 30 2019 23:48:31 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "韩元旭",
@@ -488,7 +488,7 @@
     
         <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用 XCTest + OCMock 写单元测试也有一段时间了. 一直没了解 OCMock 到底是怎么实现的, 所以就想找个时间读读源码, 揭开 OCMock 的神秘面纱. 在阅读源码时发现比较核心的机制就是 NSProxy + 消息转发, 所以在看源码之前, 先简单复习一下相关知识.</p>
 <h2 id="消息转发"><a href="#消息转发" class="headerlink" title="消息转发"></a>消息转发</h2><p>先来看看消息转发, Objective-C 的消息机制就不赘述了, 在 <code>objc_msgSend</code> 时, 如果对象的和其父类一直到根类都没有在方法缓存和方法列表中找到对应的方法就会发生这样的错误: <code>unrecognized selector sent to instance</code>, 但是在崩溃前, 会有消息转发的机制来尝试挽救.</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/6/28/16b9dbc0d661e312?w=2024&amp;h=1522&amp;f=png&amp;s=448881" alt="消息转发简化整理"></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4jm5tdlpij313w0u0aly.jpg" alt="消息转发简化整理"></p>
 <p>第一步, 首先会调用 <code>forwardingTargetForSelector:</code> 方法获取一个可以处理该 <code>Selector</code> 的对象. 对该对象重新进行发送消息, 如果返回为 <code>nil</code>, 则走第二步.</p>
 <p>第二步, 调用 <code>methodSignatureForSelector:</code> 方法来获得方法签名 <code>NSMethodSignature</code>, 包含 <code>Selector</code> 和 参数的信息, 用于生成 <code>NSInvocation</code>, 如果返回为 <code>nil</code>, 则抛出 <code>doesNotRecognizeSelector</code> 异常.</p>
 <p>第三步, 调用 <code>forwardInvocation:</code> 对 <code>NSInvocation</code> 进行处理, 如果本身, 父类一直到根类都没有处理, 则还是会抛出 <code>doesNotRecognizeSelector</code> 异常.</p>
@@ -635,7 +635,7 @@ OCMStub([configMock enableXXFeature]).andReturn(YES);
 <p>其目的就是通过 <code>setTarget:nil</code> 来禁止这个 <code>invocation</code> 调用, 用 <code>invocationMatcher</code> 来记录并且管理一下这个 <code>invocation</code>, 然后把这个 <code>invocationMatcher</code> 传递给 <code>mockObject</code> 就是我们上面记录过的 <code>configMock</code> 对象.</p>
 <p>在 <code>addStub:</code> 方法中, 如果是实例方法只是将这个 <code>invocationMatcher</code> 保存到了一个数组中, 如果是类方法等下再看 Stub <code>sharedRemoteConfig</code> 这个类方法时再看.</p>
 <p>这样整个 <code>OCMStub</code> 的过程就理解了. 在简单整理一下对象间的关系, 方便理解.</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/6/30/16ba7d642173b098?w=1724&amp;h=280&amp;f=png&amp;s=70507" alt="对象间关系-1"></p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4jm74vmjjj31bw07stac.jpg" alt="对象间关系-1"></p>
 <p>mock 对象持有一个 <code>invocationMatcher</code> 对象的数组, 每一个 <code>invocationMatcher</code> 对象表示一次的 Stub(或者是 Expect 等), 还记录着该方法是个类方法还是实例方法.</p>
 <p>每一个 <code>invocationMatcher</code> 持有 <code>invocation</code> 对象, 用于进行在调用的时候, 和调用的 <code>invocation</code> 进行匹配, 以及参数校验等逻辑.</p>
 <p>在 Stub 流程中, 这个 <code>recorder</code> 对象相当于一个流程管理者, 记录了该流程的信息, 再 Stub 语句完整结束后, 其实就被释放了, 后面在看.</p>
@@ -656,10 +656,10 @@ OCMStub([configMock enableXXFeature]).andReturn(YES);
 </code></pre>
 <p>这个 <code>_addReturn()</code> 是一个 <code>block</code>, 传入一个 <code>NSValue</code>, 返回自身方便链式编写. 本质上就是根据返回值的类型, 是基本类型还是对象使用不同的 <code>ValueProvider</code> 进行包装. 基本类型使用 <code>OCMBoxedReturnValueProvider</code>, 对象则使用 <code>OCMReturnValueProvider</code>.</p>
 <p>在来看刚刚的对象间关系:</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/6/30/16ba7da283995f84?w=1784&amp;h=380&amp;f=png&amp;s=90595" alt="对象间关系-2"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4jm7i2o5hj31dk0akgns.jpg" alt="对象间关系-2"></p>
 <p>这时就增加了 <code>ValueProviders</code> 的逻辑, 每一个 <code>invocationMatcher</code> 持有多个. 因为不仅仅可以 <code>andReturn</code> 指定返回值, 例如还可以 <code>andDo</code> 指定一个 <code>block</code><br>, 在方法被调用后执行等等. 不过感觉 <code>OCMock</code> 此处的处理还可以再完善一下, 这些类似于的 <code>ValueProviders</code> 都遵从一个 <code>ValueProviders</code> 的协议, 然后协议要求实现 <code>handleInvocation:</code>, 不过既然是人家内部的逻辑, 也无所谓啦.</p>
 <h4 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h4><p>调用过程中实际上是没有 <code>recorder</code> 的, 在 <code>OCMStub</code> 整行代码结束后就被释放啦. 对象关系就变成这样了:</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/6/30/16ba7fc1370d6486?w=1734&amp;h=314&amp;f=png&amp;s=73617" alt="对象间关系-3"></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4jm7vl1tkj31c608qtaf.jpg" alt="对象间关系-3"></p>
 <p>真正调用的是对 <code>configMock</code> 即 <code>OCClassMockObject</code> 进行调用如  <code>enableXXFeature</code> 方法的过程就像前面说过的, 由于没有了 <code>recorder</code>, <code>forwardingTargetForSelector:</code> 会返回 <code>nil</code> 接下来的消息转发流程回去获取方法签名, 然后在 <code>forwardInvocation:</code> 中处理.</p>
 <pre><code class="objc">- (void)forwardInvocation:(NSInvocation *)anInvocation {
     @try
